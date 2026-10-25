@@ -1,5 +1,4 @@
-
-import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 import * as navigation from 'next/navigation';
 import { mockSession } from '../../tests-support.ts';
 
