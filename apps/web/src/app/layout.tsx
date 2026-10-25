@@ -6,47 +6,55 @@ import { Providers } from './providers.tsx';
 import './globals.css';
 
 const DESCRIPTION =
-  'Orbit is a free, realtime, keyboard-first task manager for teams: issues, boards, sprints, projects, and docs that sync instantly for everyone. No pricing, no paid tiers, ever.';
+  'TaskFlow is a task and project management platform for team collaboration, task tracking, and project planning.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(serverEnv().NEXT_PUBLIC_APP_URL),
+
   title: {
-    default: 'Orbit: the free, realtime, keyboard-first task manager',
-    template: '%s · Orbit',
+    default: 'TaskFlow',
+    template: '%s · TaskFlow',
   },
+
   description: DESCRIPTION,
-  applicationName: 'Orbit',
+  applicationName: 'TaskFlow',
+
   keywords: [
-    'task manager',
-    'issue tracking',
+    'TaskFlow',
+    'task management',
     'project management',
-    'realtime',
-    'keyboard-first',
-    'cycles',
-    'sprints',
-    'kanban',
-    'docs',
-    'GitHub integration',
-    'MCP',
-    'free',
-    'open source',
+    'issue tracking',
+    'team collaboration',
+    'project planning',
+    'task tracking',
   ],
-  authors: [{ name: 'Orbit' }],
-  creator: 'Orbit',
-  publisher: 'Orbit',
-  appleWebApp: { capable: true, title: 'Orbit', statusBarStyle: 'black-translucent' },
-  formatDetection: { telephone: false },
+
+  authors: [{ name: 'Nagy Anwar' }],
+  creator: 'Nagy Anwar',
+  publisher: 'Nagy Anwar',
+
+  appleWebApp: {
+    capable: true,
+    title: 'TaskFlow',
+    statusBarStyle: 'black-translucent',
+  },
+
+  formatDetection: {
+    telephone: false,
+  },
+
   openGraph: {
     type: 'website',
-    siteName: 'Orbit',
-    title: 'Orbit: the free, realtime, keyboard-first task manager',
+    siteName: 'TaskFlow',
+    title: 'TaskFlow',
     description: DESCRIPTION,
     locale: 'en_US',
     images: [OG_IMAGE],
   },
+
   twitter: {
     card: 'summary_large_image',
-    title: 'Orbit: the free, realtime, keyboard-first task manager',
+    title: 'TaskFlow',
     description: DESCRIPTION,
     images: [OG_IMAGE],
   },
@@ -61,7 +69,11 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-dvh bg-bg text-text antialiased">
