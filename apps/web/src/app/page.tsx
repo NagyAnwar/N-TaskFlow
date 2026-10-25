@@ -1,32 +1,32 @@
 import { redirect } from 'next/navigation';
-import { AuthErrorNotice } from '@/components/auth/auth-error-notice.tsx';
-import { landingMetadata, landingStructuredData } from '@/features/landing/landing-meta.ts';
-import { LandingPage } from '@/features/landing/landing-page.tsx';
-import { authErrorCode } from '@/lib/auth/oauth-error.ts';
+import Image from 'next/image';
+import Link from 'next/link';
 import { getSession } from '@/lib/auth/session.ts';
-import { signUpIsOpen } from '@/lib/env.ts';
 
-export const metadata = landingMetadata('/');
-
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
+export default async function HomePage() {
   const session = await getSession();
+
   if (session !== null) redirect('/my-issues');
 
-  const errorCode = authErrorCode((await searchParams)['error']);
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD built from constants
-        dangerouslySetInnerHTML={{ __html: landingStructuredData() }}
-      />
-      <LandingPage openSignUp={signUpIsOpen()} />
-      {errorCode === undefined ? null : <AuthErrorNotice code={errorCode} />}
-    </>
+    <main className="flex min-h-dvh items-center justify-center bg-white px-6">
+      <div className="flex w-full max-w-md flex-col items-center gap-10">
+        <Image
+          src="/Pharmaplast.png"
+          alt="Pharmaplast — Modern Wound Management"
+          width={322}
+          height={100}
+          priority
+          className="h-auto max-w-full"
+        />
+
+        <Link
+          href="/login"
+          className="flex h-12 w-full items-center justify-center rounded-lg bg-blue-700 px-6 text-base font-semibold text-white transition hover:bg-blue-800"
+        >
+          Login
+        </Link>
+      </div>
+    </main>
   );
 }
