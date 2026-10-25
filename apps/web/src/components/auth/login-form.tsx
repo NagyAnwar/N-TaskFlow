@@ -1,7 +1,7 @@
 'use client';
 
 import { signInCodeRequestSchema, signInCodeVerifySchema } from '@orbit/shared/validators';
-import { Fingerprint, KeyRound, Loader2, MailCheck } from 'lucide-react';
+import { KeyRound, Loader2, MailCheck } from 'lucide-react';
 import { type FormEvent, type ReactNode, useState } from 'react';
 import { OrbitMark } from '@/components/brand/orbit-logo.tsx';
 import { Button } from '@/components/ui/button.tsx';
@@ -212,15 +212,11 @@ function OtpFields({ sent, value, pending, onChange, onResend, onChangeEmail }: 
 
 function LoginFooter({
   passwordEnabled,
-  emailEnabled,
   creatingAccount,
-  openSignUp,
   onToggleAccount,
 }: {
   readonly passwordEnabled: boolean;
-  readonly emailEnabled: boolean;
   readonly creatingAccount: boolean;
-  readonly openSignUp: boolean;
   readonly onToggleAccount: () => void;
 }) {
   return (
@@ -283,12 +279,6 @@ export function LoginForm({
     }
   };
 
-  const signInWithPasskey = () =>
-    withPending('passkey', async () => {
-      const result = await authClient.signIn.passkey();
-      if (result?.error) throw new Error(result.error.message ?? 'No passkey available.');
-      window.location.assign(callbackUrl);
-    });
 
   const signInWithSocial = (provider: 'google' | 'github') =>
     withPending(provider, async () => {
@@ -462,9 +452,7 @@ export function LoginForm({
 
       <LoginFooter
         passwordEnabled={passwordEnabled}
-        emailEnabled={emailEnabled}
         creatingAccount={creatingAccount}
-        openSignUp={openSignUp}
         onToggleAccount={() => setCreatingAccount((current) => !current)}
       />
     </div>
