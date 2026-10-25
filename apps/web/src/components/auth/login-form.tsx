@@ -19,7 +19,6 @@ export interface LoginFormProps {
   readonly errorCallbackUrl?: string;
   readonly passwordEnabled?: boolean;
   readonly emailEnabled?: boolean;
-  readonly openSignUp?: boolean;
 }
 
 type Pending =
@@ -253,7 +252,6 @@ export function LoginForm({
   errorCallbackUrl = '/login',
   passwordEnabled = false,
   emailEnabled = true,
-  openSignUp = false,
 }: LoginFormProps) {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
