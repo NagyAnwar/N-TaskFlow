@@ -209,6 +209,7 @@ function OtpFields({ sent, value, pending, onChange, onResend, onChangeEmail }: 
   );
 }
 
+
 function LoginFooter({
   passwordEnabled,
   emailEnabled,
@@ -230,22 +231,15 @@ function LoginFooter({
           className="text-center text-muted text-xs underline-offset-2 hover:underline"
           onClick={onToggleAccount}
         >
-          {creatingAccount ? 'I already have an account' : 'Create an account with a password'}
+          {creatingAccount
+            ? 'I already have an account'
+            : 'Create an account with a password'}
         </button>
       ) : null}
-      {openSignUp && !creatingAccount ? (
-        <p className="text-center text-2xs text-faint">
-          {emailEnabled
-            ? 'New here? Signing in creates your account, then you set up a workspace.'
-            : 'New here? Create an account with an available sign-in method, then set up a workspace.'}
-        </p>
-      ) : null}
-      <p className="text-center text-2xs text-faint">
-        Register a passkey after signing in. Sessions expire after 30 days.
-      </p>
     </>
   );
 }
+
 
 function EmailLoginSection({
   enabled,
@@ -373,30 +367,14 @@ export function LoginForm({
     <div className="flex w-full max-w-[22rem] flex-col gap-5">
       <div className="flex flex-col gap-1.5 text-center">
         <OrbitMark size={36} className="mx-auto" />
-        <h1 className="font-medium text-text text-xl">Sign in to Orbit</h1>
+        <h1 className="font-medium text-text text-xl">Pharmaplast</h1>
+        <h1 className="font-medium text-text text-xl">Controlling Department</h1>
         <p className="text-muted text-xs">
           {passwordEnabled
             ? 'Pick how you want in.'
             : 'Passwordless by design. Pick how you want in.'}
         </p>
       </div>
-
-      <Button
-        variant="primary"
-        size="md"
-        block
-        disabled={pending !== null}
-        onClick={() => {
-          signInWithPasskey();
-        }}
-      >
-        {pending === 'passkey' ? (
-          <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-        ) : (
-          <Fingerprint className="size-4" aria-hidden="true" />
-        )}
-        Continue with passkey
-      </Button>
 
       <SocialButtons
         providers={providers}
@@ -405,11 +383,6 @@ export function LoginForm({
       />
 
       <EmailLoginSection enabled={passwordEnabled || emailEnabled}>
-        <div className="flex items-center gap-3">
-          <span className="h-px flex-1 bg-border" />
-          <span className="text-2xs text-faint uppercase tracking-wide">or</span>
-          <span className="h-px flex-1 bg-border" />
-        </div>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-2">
           <EmailLoginSection enabled={passwordEnabled && creatingAccount && !otpSent}>
@@ -485,12 +458,6 @@ export function LoginForm({
             </Button>
           </EmailLoginSection>
         </form>
-      </EmailLoginSection>
-
-      <EmailLoginSection enabled={!emailEnabled}>
-        <p className="text-center text-muted text-xs">
-          Email sign-in codes and password reset emails are unavailable on this server.
-        </p>
       </EmailLoginSection>
 
       <LoginFooter
