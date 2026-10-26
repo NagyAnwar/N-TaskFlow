@@ -55,7 +55,7 @@ it('shows verification guidance when an unverified user advances from profile to
   );
 });
 
-iit('moves from teammates to the simplified onboarding step', async () => {
+it('moves from teammates to the simplified onboarding step', async () => {
   const status: OnboardingStatusView = {
     name: 'New Member',
     handle: 'new-member',
