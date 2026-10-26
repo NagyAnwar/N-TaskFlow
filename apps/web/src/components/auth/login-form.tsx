@@ -359,8 +359,8 @@ export function LoginForm({
         <h1 className="font-medium text-text text-xl">Controlling Department</h1>
         <p className="text-muted text-xs">
           {passwordEnabled
-            ? 'Pick how you want in.'
-            : 'Passwordless by design. Pick how you want in.'}
+            ? '---------------------'
+            : '---------------------'}
         </p>
       </div>
 
