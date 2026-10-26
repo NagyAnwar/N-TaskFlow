@@ -9,7 +9,6 @@ import { listDevUsers } from '@/lib/api/dev-users.ts';
 import { authErrorCode } from '@/lib/auth/oauth-error.ts';
 import { enabledSocialProviders, passwordAuthEnabled } from '@/lib/auth/server.ts';
 import { getSession } from '@/lib/auth/session.ts';
-import { signUpIsOpen } from '@/lib/env.ts';
 import { loginMetadata, mcpContinueUrl, safeCallback } from './continue-url.ts';
 
 export async function generateMetadata({
