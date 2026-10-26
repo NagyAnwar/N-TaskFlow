@@ -17,7 +17,7 @@ const STEP_LABELS: Record<OnboardingStep, string> = {
   profile: 'Your profile',
   workspace: 'Workspace',
   invite: 'Teammates',
-  connect: 'AI tool',
+  connect: 'Welcome',
   theme: 'Preferences',
 };
 
