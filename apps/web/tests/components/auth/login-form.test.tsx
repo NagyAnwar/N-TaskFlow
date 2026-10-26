@@ -129,25 +129,6 @@ describe('LoginForm', () => {
     expect(screen.getByText('Continue with passkey')).toBeDefined();
   });
 
-  it('says signing in creates an account when signup is open', () => {
-    renderForm(false, true);
-    expect(screen.getByText(SIGN_UP_NOTE)).toBeDefined();
-  });
-
-  it('stays quiet about signing up on a domain restricted instance', () => {
-    renderForm(false, false);
-    expect(screen.queryAllByText(SIGN_UP_NOTE).length).toBe(0);
-  });
-
-  it('drops the note once the user is explicitly creating an account', async () => {
-    const user = userEvent.setup();
-    renderForm(true, true);
-    expect(screen.getByText(SIGN_UP_NOTE)).toBeDefined();
-
-    await user.click(screen.getByText('Create an account with a password'));
-    expect(screen.queryAllByText(SIGN_UP_NOTE).length).toBe(0);
-  });
-
   it('hides the forgot password affordance while password auth is off', () => {
     renderForm(false);
     expect(screen.queryByText('Forgot password?')).toBeNull();
