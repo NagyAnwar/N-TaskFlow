@@ -40,7 +40,6 @@ export default async function LoginPage({
           providers={enabledSocialProviders}
           passwordEnabled={passwordAuthEnabled}
           emailEnabled={emailConfigured(process.env)}
-          openSignUp={signUpIsOpen()}
           {...(callbackUrl === undefined ? {} : { callbackUrl })}
         />
         {devUsers.length > 0 ? (

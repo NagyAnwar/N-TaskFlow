@@ -54,15 +54,15 @@ afterAll(() => {
   Object.defineProperty(window, 'location', { configurable: true, value: originalLocation });
 });
 
-function renderForm(passwordEnabled: boolean, openSignUp = false) {
-  render(<LoginForm providers={[]} passwordEnabled={passwordEnabled} openSignUp={openSignUp} />);
+function renderForm(passwordEnabled: boolean) {
+  render(<LoginForm providers={[]} passwordEnabled={passwordEnabled} />);
 }
 
 const SIGN_UP_NOTE = 'New here? Signing in creates your account, then you set up a workspace.';
 
 describe('LoginForm', () => {
   it('keeps password registration usable without advertising unavailable email', async () => {
-    render(<LoginForm providers={[]} passwordEnabled emailEnabled={false} openSignUp />);
+    render(<LoginForm providers={[]} passwordEnabled emailEnabled={false} />);
     expect(screen.queryByRole('button', { name: 'Email me a code' })).toBeNull();
     expect(screen.queryByText('Forgot password?')).toBeNull();
     expect(screen.getByRole('button', { name: 'Sign in with password' })).toBeVisible();
