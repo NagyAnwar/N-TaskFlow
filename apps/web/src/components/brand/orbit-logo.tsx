@@ -26,7 +26,7 @@ export function OrbitWordmark({
   return (
     <span className={cn('inline-flex items-center gap-2', className)}>
       <OrbitMark size={size} />
-      {compact ? null : <span className="text-base font-semibold tracking-tight">Orbit</span>}
+      {compact ? null : <span className="text-base font-semibold tracking-tight">Pharmaplast</span>}
     </span>
   );
 }
