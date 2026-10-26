@@ -58,8 +58,6 @@ function renderForm(passwordEnabled: boolean) {
   render(<LoginForm providers={[]} passwordEnabled={passwordEnabled} />);
 }
 
-const SIGN_UP_NOTE = 'New here? Signing in creates your account, then you set up a workspace.';
-
 describe('LoginForm', () => {
   it('keeps password registration usable without advertising unavailable email', async () => {
     render(<LoginForm providers={[]} passwordEnabled emailEnabled={false} />);
@@ -253,7 +251,7 @@ describe('LoginForm', () => {
     sendVerificationOtp.mockResolvedValue({ error: null });
     signInEmailOtp.mockResolvedValue({ error: null });
     const user = userEvent.setup();
-    renderForm(true, true);
+    renderForm(true);
     await user.click(screen.getByText('Create an account with a password'));
     await user.type(screen.getByLabelText('Email address'), 'ada@orbit.local');
     await user.click(screen.getByText('Email me a code'));
