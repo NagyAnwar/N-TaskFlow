@@ -28,47 +28,24 @@ export function AiConnectBanner({ mcpUrl }: { readonly mcpUrl: string }) {
   if (dismissed) return null;
 
   return (
-    <section
-      aria-label="Connect an AI tool"
-      data-testid="ai-connect-banner"
-      className="flex items-start gap-3 border-border border-b bg-surface-2 px-4 py-3"
-    >
-      <Sparkles className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <p className="font-medium text-dense text-text">Bring your work into Orbit with AI</p>
-        <p className="text-muted text-xs">
-          Connect Claude, ChatGPT, Cursor or another AI tool, then paste a starter prompt. It can
-          move your tasks over from the app you use today, or plan a project with you from scratch.
-        </p>
-        {error === null ? null : (
-          <p role="alert" className="text-danger text-xs">
-            {error}
-          </p>
-        )}
-        <div className="mt-1 flex flex-wrap items-center gap-2">
-          <Button asChild variant="primary" size="sm">
-            <Link href="/settings/mcp">Connect an AI tool</Link>
-          </Button>
-          <div className="w-full max-w-md">
-            <CopyRow
-              value={mcpUrl}
-              label="Copy MCP server URL"
-              testId="ai-connect-banner-url"
-              onError={setError}
-            />
-          </div>
-        </div>
-      </div>
+  <div className="flex flex-col gap-6" data-testid="onboarding-connect">
+    <header className="flex flex-col gap-1">
+      <h1 className="font-semibold text-text text-xl">Welcome to Pharmaplast</h1>
+      <p className="text-muted text-dense">
+        Your Controlling Department workspace is ready to set up.
+      </p>
+    </header>
+
+    <div className="flex gap-2">
       <Button
         type="button"
-        variant="ghost"
-        size="sm"
-        className="px-1.5"
-        aria-label="Dismiss"
-        onClick={() => dismiss().catch(() => undefined)}
+        variant="secondary"
+        onClick={() => next().catch(() => undefined)}
+        disabled={pending}
       >
-        <X className="size-3.5" aria-hidden="true" />
+        {continueLabel(pending, connected)}
       </Button>
-    </section>
-  );
+    </div>
+  </div>
+);
 }

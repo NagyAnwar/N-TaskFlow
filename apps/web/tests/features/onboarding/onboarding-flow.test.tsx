@@ -55,7 +55,7 @@ it('shows verification guidance when an unverified user advances from profile to
   );
 });
 
-it('moves from teammates to the AI tool step and labels it in the progress bar', async () => {
+iit('moves from teammates to the simplified onboarding step', async () => {
   const status: OnboardingStatusView = {
     name: 'New Member',
     handle: 'new-member',
@@ -66,9 +66,11 @@ it('moves from teammates to the AI tool step and labels it in the progress bar',
     completed: false,
     step: 'invite',
   };
+
   globalThis.fetch = mock(() =>
     Promise.resolve(Response.json({ onboarding: { ...status, step: 'connect' } })),
   ) as unknown as typeof fetch;
+
   render(
     <OnboardingFlow
       initialStep="invite"
@@ -80,9 +82,16 @@ it('moves from teammates to the AI tool step and labels it in the progress bar',
       emailVerificationRequired={false}
     />,
   );
+
   expect(screen.getByText('AI tool')).toBeVisible();
+
   await userEvent.setup().click(screen.getByRole('button', { name: 'Continue' }));
-  const heading = await screen.findByRole('heading', { name: 'Bring your work in with AI' });
+
+  const heading = await screen.findByRole('heading', {
+    name: 'Welcome to Pharmaplast',
+  });
+
   await waitFor(() => expect(renderedOpacity(heading)).toBeGreaterThan(0));
+
   expect(heading).toBeVisible();
 });
