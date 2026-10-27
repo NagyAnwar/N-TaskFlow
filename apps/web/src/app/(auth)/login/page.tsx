@@ -39,7 +39,7 @@ export default async function LoginPage({
           providers={enabledSocialProviders}
           passwordEnabled={passwordAuthEnabled}
           emailEnabled={emailConfigured(process.env)}
-          initialEmail={typeof params.email === 'string' ? params.email : ''}
+          initialEmail={typeof params['email'] === 'string' ? params['email'] : ''}
           initialCreatingAccount={params['mode'] === 'sign-up'}
           {...(callbackUrl === undefined ? {} : { callbackUrl })}
         />
