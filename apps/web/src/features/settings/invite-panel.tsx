@@ -3,7 +3,6 @@
 import { ORG_ROLES, type OrgRole } from '@orbit/shared/constants';
 import { emailSchema } from '@orbit/shared/validators';
 import { Copy } from 'lucide-react';
-import { Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { type FormEvent, useState } from 'react';
 import { Badge } from '@/components/ui/badge.tsx';
@@ -78,7 +77,9 @@ export function InvitePanel({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [createdInvites, setCreatedInvites] = useState<{ email: string; inviteUrl: string }[]>([]);
+  const [createdInvites, setCreatedInvites] = useState<
+    { email: string; inviteUrl: string }[]
+  >([]);
 
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [busyInviteId, setBusyInviteId] = useState<string | null>(null);
@@ -88,7 +89,9 @@ export function InvitePanel({
 
   function toggleTeam(teamId: string): void {
     setTeamIds((current) =>
-      current.includes(teamId) ? current.filter((entry) => entry !== teamId) : [...current, teamId],
+      current.includes(teamId)
+        ? current.filter((entry) => entry !== teamId)
+        : [...current, teamId],
     );
   }
 
@@ -147,7 +150,11 @@ export function InvitePanel({
     }
   }
 
-  async function inviteAction(inviteId: string, method: string, path: string): Promise<void> {
+  async function inviteAction(
+    inviteId: string,
+    method: string,
+    path: string,
+  ): Promise<void> {
     setBusyInviteId(inviteId);
     setError(null);
 
@@ -197,10 +204,11 @@ export function InvitePanel({
                 <SelectContent>
                   {ORG_ROLES.filter((entry) => entry !== 'admin' || canInviteAdmins).map(
                     (entry) => (
-                    <SelectItem key={entry} value={entry}>
-                      {ROLE_LABELS[entry]}
-                    </SelectItem>
-                  ))}
+                      <SelectItem key={entry} value={entry}>
+                        {ROLE_LABELS[entry]}
+                      </SelectItem>
+                    ),
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -278,7 +286,12 @@ export function InvitePanel({
         ) : null}
 
         <div>
-          <Button type="submit" variant="primary" size="sm" disabled={!canInvite || pending}>
+          <Button
+            type="submit"
+            variant="primary"
+            size="sm"
+            disabled={!canInvite || pending}
+          >
             {pending ? 'Creating links...' : 'Create invitation links'}
           </Button>
         </div>
@@ -324,7 +337,9 @@ export function InvitePanel({
                       size="sm"
                       variant="ghost"
                       disabled={!canInvite || busyInviteId === invite.id}
-                      onClick={() => inviteAction(invite.id, 'DELETE', `/api/invites/${invite.id}`)}
+                      onClick={() =>
+                        inviteAction(invite.id, 'DELETE', `/api/invites/${invite.id}`)
+                      }
                     >
                       Revoke
                     </Button>
