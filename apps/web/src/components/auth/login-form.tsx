@@ -210,7 +210,6 @@ function OtpFields({ sent, value, pending, onChange, onResend, onChangeEmail }: 
   );
 }
 
-
 function LoginFooter({
   passwordEnabled,
   creatingAccount,
@@ -237,7 +236,6 @@ function LoginFooter({
   );
 }
 
-
 function EmailLoginSection({
   enabled,
   children,
@@ -256,7 +254,6 @@ export function LoginForm({
   emailEnabled = true,
   initialEmail = '',
   initialCreatingAccount = false,
-
 }: LoginFormProps) {
   const { toast } = useToast();
   const [email, setEmail] = useState(initialEmail);
@@ -281,7 +278,6 @@ export function LoginForm({
       setPending(null);
     }
   };
-
 
   const signInWithSocial = (provider: 'google' | 'github') =>
     withPending(provider, async () => {
@@ -326,7 +322,7 @@ export function LoginForm({
         throw new Error(result.error.message ?? 'That code is invalid or expired.');
       }
 
-     window.location.assign(callbackUrl);
+      window.location.assign(callbackUrl);
     });
 
   const forgotPassword = () =>
