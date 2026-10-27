@@ -141,16 +141,18 @@ if (session === null) {
   }
 
   if (!session.user.emailVerified) {
+    const next = encodeURIComponent(`/invite/${token}`);
+    const email = encodeURIComponent(invite.email);
     return (
       <Shell title="Email verification required">
         <p className="text-muted text-xs">
-          Your account is signed in, but the server still reports
-          {` ${invite.email} `}as unverified. Sign-in alone has not
-          completed email verification. Please contact your workspace
-          administrator if this persists.
+          Verify the invited email address, then return here to accept your invitation to
+          { ` ${invite.organizationName} ` }.
         </p>
-        <Button variant="secondary" size="md" block asChild>
-          <Link href="/my-issues">Return to Orbit</Link>
+        <Button variant="primary" size="md" block asChild>
+          <Link href={`/login?reauth=1&next=${next}&email=${email}`}>
+            Verify email and continue
+          </Link>
         </Button>
       </Shell>
     );
