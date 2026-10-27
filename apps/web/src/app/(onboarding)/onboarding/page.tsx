@@ -27,9 +27,6 @@ export default async function OnboardingPage({
     redirect(landingPath);
   }
 
-  // Show pending invitations even before verification so invited users are
-  // directed toward joining their workspace instead of creating a duplicate.
-  // acceptInvite still enforces email verification server-side.
   const invites: PendingInviteView[] = await pendingInvitesForEmail(status.email);
 
   const view: OnboardingStatusView = {
