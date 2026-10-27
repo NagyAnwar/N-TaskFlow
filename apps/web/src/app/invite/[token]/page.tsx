@@ -142,15 +142,15 @@ if (session === null) {
 
   if (!session.user.emailVerified) {
     return (
-      <Shell title="Verify your email to join">
+      <Shell title="Email verification required">
         <p className="text-muted text-xs">
-          Sign in with an emailed code for {invite.email} to confirm this address belongs to you,
-          then return to accept the invitation.
+          Your account is signed in, but the server still reports
+          {` ${invite.email} `}as unverified. Sign-in alone has not
+          completed email verification. Please contact your workspace
+          administrator if this persists.
         </p>
-        <Button variant="primary" size="md" block asChild>
-          <Link href={`/login?reauth=1&next=${encodeURIComponent(`/invite/${token}`)}`}>
-            Verify email
-          </Link>
+        <Button variant="secondary" size="md" block asChild>
+          <Link href="/my-issues">Return to Orbit</Link>
         </Button>
       </Shell>
     );
