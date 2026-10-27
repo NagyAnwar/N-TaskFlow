@@ -3,6 +3,7 @@
 import { ORG_ROLES, type OrgRole } from '@orbit/shared/constants';
 import { emailSchema } from '@orbit/shared/validators';
 import { Copy } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { type FormEvent, useState } from 'react';
 import { Badge } from '@/components/ui/badge.tsx';
@@ -87,9 +88,7 @@ export function InvitePanel({
 
   function toggleTeam(teamId: string): void {
     setTeamIds((current) =>
-      current.includes(teamId)
-        ? current.filter((entry) => entry !== teamId)
-        : [...current, teamId],
+      current.includes(teamId) ? current.filter((entry) => entry !== teamId) : [...current, teamId],
     );
   }
 
@@ -173,14 +172,8 @@ export function InvitePanel({
       </header>
 
       <form onSubmit={onSubmit} className="flex flex-col gap-3">
-        <fieldset
-          disabled={!canInvite || pending}
-          className="flex flex-col gap-3"
-        >
-          <label
-            htmlFor="invite-emails"
-            className="flex flex-col gap-1.5"
-          >
+        <fieldset disabled={!canInvite || pending} className="flex flex-col gap-3">
+          <label htmlFor="invite-emails" className="flex flex-col gap-1.5">
             <span className="sr-only">Email addresses</span>
             <Textarea
               id="invite-emails"
@@ -196,23 +189,14 @@ export function InvitePanel({
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2">
               <span className="text-muted text-xs">Role</span>
-              <Select
-                value={permittedRole}
-                onValueChange={(next) => setRole(next as OrgRole)}
-              >
-                <SelectTrigger
-                  className="h-7 w-36 text-xs"
-                  aria-label="Invite role"
-                >
-                  <SelectValue>
-                    {ROLE_LABELS[permittedRole]}
-                  </SelectValue>
+              <Select value={permittedRole} onValueChange={(next) => setRole(next as OrgRole)}>
+                <SelectTrigger className="h-7 w-36 text-xs" aria-label="Invite role">
+                  <SelectValue>{ROLE_LABELS[permittedRole]}</SelectValue>
                 </SelectTrigger>
 
                 <SelectContent>
-                  {ORG_ROLES.filter(
-                    (entry) => entry !== 'admin' || canInviteAdmins,
-                  ).map((entry) => (
+                  {ORG_ROLES.filter((entry) => entry !== 'admin' || canInviteAdmins).map(
+                    (entry) => (
                     <SelectItem key={entry} value={entry}>
                       {ROLE_LABELS[entry]}
                     </SelectItem>
@@ -339,16 +323,8 @@ export function InvitePanel({
                       type="button"
                       size="sm"
                       variant="ghost"
-                      disabled={
-                        !canInvite || busyInviteId === invite.id
-                      }
-                      onClick={() =>
-                        inviteAction(
-                          invite.id,
-                          'DELETE',
-                          `/api/invites/${invite.id}`,
-                        )
-                      }
+                      disabled={!canInvite || busyInviteId === invite.id}
+                      onClick={() => inviteAction(invite.id, 'DELETE', `/api/invites/${invite.id}`)}
                     >
                       Revoke
                     </Button>
