@@ -321,12 +321,12 @@ export function LoginForm({
     withPending('otp-verify', async () => {
       const input = signInCodeVerifySchema.parse({ email, otp });
       const result = await authClient.signIn.emailOtp(input);
-      if (result.error) throw new Error(result.error.message ?? 'That code is invalid or expired.');
-      const session = await authClient.getSession({ query: { disableCookieCache: true } });
-      if (session.error || !session.data?.user.emailVerified) {
-        throw new Error('Could not confirm your verified session. Sign in again.');
+
+      if (result.error) {
+        throw new Error(result.error.message ?? 'That code is invalid or expired.');
       }
-      window.location.assign(callbackUrl);
+
+     window.location.assign(callbackUrl);
     });
 
   const forgotPassword = () =>
