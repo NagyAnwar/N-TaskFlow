@@ -77,9 +77,7 @@ export function InvitePanel({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [createdInvites, setCreatedInvites] = useState<
-    { email: string; inviteUrl: string }[]
-  >([]);
+  const [createdInvites, setCreatedInvites] = useState<{ email: string; inviteUrl: string }[]>([]);
 
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [busyInviteId, setBusyInviteId] = useState<string | null>(null);
@@ -89,9 +87,7 @@ export function InvitePanel({
 
   function toggleTeam(teamId: string): void {
     setTeamIds((current) =>
-      current.includes(teamId)
-        ? current.filter((entry) => entry !== teamId)
-        : [...current, teamId],
+      current.includes(teamId) ? current.filter((entry) => entry !== teamId) : [...current, teamId],
     );
   }
 
@@ -150,11 +146,7 @@ export function InvitePanel({
     }
   }
 
-  async function inviteAction(
-    inviteId: string,
-    method: string,
-    path: string,
-  ): Promise<void> {
+  async function inviteAction(inviteId: string, method: string, path: string): Promise<void> {
     setBusyInviteId(inviteId);
     setError(null);
 
@@ -286,12 +278,7 @@ export function InvitePanel({
         ) : null}
 
         <div>
-          <Button
-            type="submit"
-            variant="primary"
-            size="sm"
-            disabled={!canInvite || pending}
-          >
+          <Button type="submit" variant="primary" size="sm" disabled={!canInvite || pending}>
             {pending ? 'Creating links...' : 'Create invitation links'}
           </Button>
         </div>
@@ -337,9 +324,7 @@ export function InvitePanel({
                       size="sm"
                       variant="ghost"
                       disabled={!canInvite || busyInviteId === invite.id}
-                      onClick={() =>
-                        inviteAction(invite.id, 'DELETE', `/api/invites/${invite.id}`)
-                      }
+                      onClick={() => inviteAction(invite.id, 'DELETE', `/api/invites/${invite.id}`)}
                     >
                       Revoke
                     </Button>
