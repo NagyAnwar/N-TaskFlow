@@ -104,8 +104,8 @@ export default async function InvitePage({ params }: { params: Promise<{ token: 
     return (
       <Shell title={`Join ${invite.organizationName}`}>
         <p className="text-muted text-xs">
-          You were invited at <span className="text-text">{invite.email}</span> as a{' '}
-        {invite.role}. Sign in or create an account using this email address to continue.
+          You were invited at <span className="text-text">{invite.email}</span> as a {invite.role}.
+          Sign in or create an account using this email address to continue.
         </p>
 
         <Button variant="primary" size="md" block asChild>
