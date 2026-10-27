@@ -97,21 +97,31 @@ export default async function InvitePage({ params }: { params: Promise<{ token: 
 
   const session = await getSession();
 
-  if (session === null) {
-    return (
-      <Shell title={`Join ${invite.organizationName}`}>
-        <p className="text-muted text-xs">
-          This invite was sent to <span className="text-text">{invite.email}</span> as a{' '}
-          {invite.role}. Sign in with that address and you will land back here.
-        </p>
-        <Button variant="primary" size="md" block asChild>
-          <Link href={`/login?next=${encodeURIComponent(`/invite/${token}`)}`}>
-            Sign in to continue
-          </Link>
-        </Button>
-      </Shell>
-    );
-  }
+if (session === null) {
+  const next = encodeURIComponent(`/invite/${token}`);
+  const email = encodeURIComponent(invite.email);
+
+  return (
+    <Shell title={`Join ${invite.organizationName}`}>
+      <p className="text-muted text-xs">
+        You were invited at <span className="text-text">{invite.email}</span> as a{' '}
+        {invite.role}. Sign in or create an account using this email address to continue.
+      </p>
+
+      <Button variant="primary" size="md" block asChild>
+        <Link href={`/login?next=${next}&email=${email}`}>
+          Sign in to continue
+        </Link>
+      </Button>
+
+      <Button variant="secondary" size="md" block asChild>
+        <Link href={`/login?mode=sign-up&next=${next}&email=${email}`}>
+          Create account
+        </Link>
+      </Button>
+    </Shell>
+  );
+}
 
   if (session.user.email.toLowerCase() !== invite.email.toLowerCase()) {
     return (

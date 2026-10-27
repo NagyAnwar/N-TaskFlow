@@ -36,10 +36,12 @@ export default async function LoginPage({
     <main className="flex min-h-dvh items-center justify-center bg-bg px-5 py-12">
       <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-pop sm:p-7">
         <LoginForm
-          providers={enabledSocialProviders}
-          passwordEnabled={passwordAuthEnabled}
-          emailEnabled={emailConfigured(process.env)}
-          {...(callbackUrl === undefined ? {} : { callbackUrl })}
+  providers={enabledSocialProviders}
+  passwordEnabled={passwordAuthEnabled}
+  emailEnabled={emailConfigured(process.env)}
+  initialEmail={typeof params.email === 'string' ? params.email : ''}
+  initialCreatingAccount={params['mode'] === 'sign-up'}
+  {...(callbackUrl === undefined ? {} : { callbackUrl })}
         />
         {devUsers.length > 0 ? (
           <DevSignIn users={devUsers} callbackUrl={callbackUrl ?? '/my-issues'} />

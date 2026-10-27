@@ -19,6 +19,8 @@ export interface LoginFormProps {
   readonly errorCallbackUrl?: string;
   readonly passwordEnabled?: boolean;
   readonly emailEnabled?: boolean;
+  readonly initialEmail?: string;
+  readonly initialCreatingAccount?: boolean;
 }
 
 type Pending =
@@ -252,15 +254,18 @@ export function LoginForm({
   errorCallbackUrl = '/login',
   passwordEnabled = false,
   emailEnabled = true,
+  initialEmail = '',
+  initialCreatingAccount = false,
+
 }: LoginFormProps) {
   const { toast } = useToast();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState('');
   const [otp, setOtp] = useState('');
   const [name, setName] = useState('');
-  const [creatingAccount, setCreatingAccount] = useState(false);
   const [pending, setPending] = useState<Pending>(null);
   const [otpSent, setOtpSent] = useState(false);
+  const [creatingAccount, setCreatingAccount] = useState(initialCreatingAccount);
 
   const withPending = async (kind: Exclude<Pending, null>, run: () => Promise<void>) => {
     setPending(kind);
