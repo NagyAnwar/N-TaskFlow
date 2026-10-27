@@ -67,6 +67,7 @@ const MEMBER_PERMISSIONS: readonly Permission[] = [
 
 const ADMIN_PERMISSIONS: readonly Permission[] = [
   ...MEMBER_PERMISSIONS,
+  'member:invite',
   'team:manage',
   'member:manage',
   'integration:manage',
