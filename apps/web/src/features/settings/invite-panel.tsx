@@ -96,21 +96,19 @@ export function InvitePanel({
     );
   }
 
-async function copyInviteLink(inviteUrl: string): Promise<void> {
-  setError(null);
+  async function copyInviteLink(inviteUrl: string): Promise<void> {
+    setError(null);
 
-  try {
-    const fullUrl = new URL(inviteUrl, window.location.origin).href;
-    await navigator.clipboard.writeText(fullUrl);
-    setCopiedUrl(inviteUrl);
-  } catch {
-    setError('Could not copy the link. Please copy it manually.');
+    try {
+      const fullUrl = new URL(inviteUrl, window.location.origin).href;
+      await navigator.clipboard.writeText(fullUrl);
+      setCopiedUrl(inviteUrl);
+    } catch {
+      setError('Could not copy the link. Please copy it manually.');
+    }
   }
-}
 
-  async function onSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ): Promise<void> {
+  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
     setError(null);
@@ -153,11 +151,7 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
     }
   }
 
-  async function inviteAction(
-    inviteId: string,
-    method: string,
-    path: string,
-  ): Promise<void> {
+  async function inviteAction(inviteId: string, method: string, path: string): Promise<void> {
     setBusyInviteId(inviteId);
     setError(null);
 
@@ -332,7 +326,7 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
         ) : (
           <ul className="flex flex-col gap-1.5">
             {invites.map((invite) => {
-                const inviteUrl = `/invite/${invite.id}`;
+              const inviteUrl = `/invite/${invite.id}`;
 
               return (
                 <li
