@@ -1,1 +1,31 @@
-{"$schema":"https://openapi.vercel.sh/vercel.json","installCommand":"bun ../../scripts/vercel-install.ts","git":{"deploymentEnabled":{"**":false,"main":true}},"regions":["hnd1"],"crons":[{"path":"/api/cron/prune","schedule":"0 4 * * *"},{"path":"/api/cron/project-staleness","schedule":"0 9 * * *"},{"path":"/api/cron/analytics-snapshots","schedule":"0 */6 * * *"},{"path":"/api/cron/notifications","schedule":"* * * * *"}]}
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "bun ../../scripts/vercel-install.ts",
+  "git": {
+    "deploymentEnabled": {
+      "**": false,
+      "main": true
+    }
+  },
+  "regions": [
+    "hnd1"
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/prune",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/project-staleness",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/analytics-snapshots",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/notifications",
+      "schedule": "* * * * *"
+    }
+  ]
+}
