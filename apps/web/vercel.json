@@ -7,9 +7,25 @@
       "main": true
     }
   },
-  "regions": ["hnd1"],
+  "regions": [
+    "hnd1"
+  ],
   "crons": [
-    { "path": "/api/cron/prune", "schedule": "0 4 * * *" },
-    { "path": "/api/cron/project-staleness", "schedule": "0 9 * * *" }
+    {
+      "path": "/api/cron/prune",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/project-staleness",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/analytics-snapshots",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/notifications",
+      "schedule": "* * * * *"
+    }
   ]
 }

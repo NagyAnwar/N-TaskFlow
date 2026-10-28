@@ -1,6 +1,6 @@
-import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth/session.ts';
 
 export default async function HomePage() {

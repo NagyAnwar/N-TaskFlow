@@ -210,7 +210,6 @@ function OtpFields({ sent, value, pending, onChange, onResend, onChangeEmail }: 
   );
 }
 
-
 function LoginFooter({
   passwordEnabled,
   creatingAccount,
@@ -228,15 +227,12 @@ function LoginFooter({
           className="text-center text-muted text-xs underline-offset-2 hover:underline"
           onClick={onToggleAccount}
         >
-          {creatingAccount
-            ? 'I already have an account'
-            : 'Create an account with a password'}
+          {creatingAccount ? 'I already have an account' : 'Create an account with a password'}
         </button>
       ) : null}
     </>
   );
 }
-
 
 function EmailLoginSection({
   enabled,
@@ -256,7 +252,6 @@ export function LoginForm({
   emailEnabled = true,
   initialEmail = '',
   initialCreatingAccount = false,
-
 }: LoginFormProps) {
   const { toast } = useToast();
   const [email, setEmail] = useState(initialEmail);
@@ -281,7 +276,6 @@ export function LoginForm({
       setPending(null);
     }
   };
-
 
   const signInWithSocial = (provider: 'google' | 'github') =>
     withPending(provider, async () => {
@@ -326,7 +320,7 @@ export function LoginForm({
         throw new Error(result.error.message ?? 'That code is invalid or expired.');
       }
 
-     window.location.assign(callbackUrl);
+      window.location.assign(callbackUrl);
     });
 
   const forgotPassword = () =>
@@ -363,9 +357,7 @@ export function LoginForm({
         <h1 className="font-medium text-text text-xl">Pharmaplast</h1>
         <h1 className="font-medium text-text text-xl">Controlling Department</h1>
         <p className="text-muted text-xs">
-          {passwordEnabled
-            ? '---------------------'
-            : '---------------------'}
+          {passwordEnabled ? '---------------------' : '---------------------'}
         </p>
       </div>
 
@@ -376,7 +368,6 @@ export function LoginForm({
       />
 
       <EmailLoginSection enabled={passwordEnabled || emailEnabled}>
-
         <form onSubmit={onSubmit} className="flex flex-col gap-2">
           <EmailLoginSection enabled={passwordEnabled && creatingAccount && !otpSent}>
             <NameField value={name} onChange={setName} />

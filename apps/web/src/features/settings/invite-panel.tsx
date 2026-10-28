@@ -2,6 +2,7 @@
 
 import { ORG_ROLES, type OrgRole } from '@orbit/shared/constants';
 import { emailSchema } from '@orbit/shared/validators';
+import { Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { type FormEvent, useState } from 'react';
 import { Badge } from '@/components/ui/badge.tsx';
@@ -15,7 +16,6 @@ import {
   SelectValue,
 } from '@/components/ui/select.tsx';
 import { Textarea } from '@/components/ui/textarea.tsx';
-import { Copy } from 'lucide-react';
 import { apiRequest, messageOf } from '@/lib/api/client.ts';
 import { cn } from '@/lib/cn.ts';
 import { cardHover } from '@/lib/interaction.ts';
@@ -77,40 +77,33 @@ export function InvitePanel({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [createdInvites, setCreatedInvites] = useState<
-    { email: string; inviteUrl: string }[]
-  >([]);
+  const [createdInvites, setCreatedInvites] = useState<{ email: string; inviteUrl: string }[]>([]);
 
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [busyInviteId, setBusyInviteId] = useState<string | null>(null);
 
   const parsed = parseEmails(emails);
-  const permittedRole =
-    role === 'admin' && !canInviteAdmins ? 'member' : role;
+  const permittedRole = role === 'admin' && !canInviteAdmins ? 'member' : role;
 
   function toggleTeam(teamId: string): void {
     setTeamIds((current) =>
-      current.includes(teamId)
-        ? current.filter((entry) => entry !== teamId)
-        : [...current, teamId],
+      current.includes(teamId) ? current.filter((entry) => entry !== teamId) : [...current, teamId],
     );
   }
 
-async function copyInviteLink(inviteUrl: string): Promise<void> {
-  setError(null);
+  async function copyInviteLink(inviteUrl: string): Promise<void> {
+    setError(null);
 
-  try {
-    const fullUrl = new URL(inviteUrl, window.location.origin).href;
-    await navigator.clipboard.writeText(fullUrl);
-    setCopiedUrl(inviteUrl);
-  } catch {
-    setError('Could not copy the link. Please copy it manually.');
+    try {
+      const fullUrl = new URL(inviteUrl, window.location.origin).href;
+      await navigator.clipboard.writeText(fullUrl);
+      setCopiedUrl(inviteUrl);
+    } catch {
+      setError('Could not copy the link. Please copy it manually.');
+    }
   }
-}
 
-  async function onSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ): Promise<void> {
+  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
     setError(null);
@@ -153,11 +146,7 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
     }
   }
 
-  async function inviteAction(
-    inviteId: string,
-    method: string,
-    path: string,
-  ): Promise<void> {
+  async function inviteAction(inviteId: string, method: string, path: string): Promise<void> {
     setBusyInviteId(inviteId);
     setError(null);
 
@@ -174,25 +163,16 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
   return (
     <section className="flex flex-col gap-4 rounded-lg border border-border bg-surface p-4">
       <header className="flex flex-col gap-1">
-        <h3 className="font-medium text-dense text-text">
-          Invite people
-        </h3>
+        <h3 className="font-medium text-dense text-text">Invite people</h3>
         <p className="text-muted text-xs">
-          Enter one email per line or separate addresses with commas.
-          Create invitation links and share them manually. Links expire
-          in 14 days.
+          Enter one email per line or separate addresses with commas. Create invitation links and
+          share them manually. Links expire in 14 days.
         </p>
       </header>
 
       <form onSubmit={onSubmit} className="flex flex-col gap-3">
-        <fieldset
-          disabled={!canInvite || pending}
-          className="flex flex-col gap-3"
-        >
-          <label
-            htmlFor="invite-emails"
-            className="flex flex-col gap-1.5"
-          >
+        <fieldset disabled={!canInvite || pending} className="flex flex-col gap-3">
+          <label htmlFor="invite-emails" className="flex flex-col gap-1.5">
             <span className="sr-only">Email addresses</span>
             <Textarea
               id="invite-emails"
@@ -208,27 +188,19 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2">
               <span className="text-muted text-xs">Role</span>
-              <Select
-                value={permittedRole}
-                onValueChange={(next) => setRole(next as OrgRole)}
-              >
-                <SelectTrigger
-                  className="h-7 w-36 text-xs"
-                  aria-label="Invite role"
-                >
-                  <SelectValue>
-                    {ROLE_LABELS[permittedRole]}
-                  </SelectValue>
+              <Select value={permittedRole} onValueChange={(next) => setRole(next as OrgRole)}>
+                <SelectTrigger className="h-7 w-36 text-xs" aria-label="Invite role">
+                  <SelectValue>{ROLE_LABELS[permittedRole]}</SelectValue>
                 </SelectTrigger>
 
                 <SelectContent>
-                  {ORG_ROLES.filter(
-                    (entry) => entry !== 'admin' || canInviteAdmins,
-                  ).map((entry) => (
-                    <SelectItem key={entry} value={entry}>
-                      {ROLE_LABELS[entry]}
-                    </SelectItem>
-                  ))}
+                  {ORG_ROLES.filter((entry) => entry !== 'admin' || canInviteAdmins).map(
+                    (entry) => (
+                      <SelectItem key={entry} value={entry}>
+                        {ROLE_LABELS[entry]}
+                      </SelectItem>
+                    ),
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -274,15 +246,12 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
         {createdInvites.length > 0 ? (
           <div className="flex flex-col gap-3">
             <p role="status" className="text-success text-xs">
-              Invitation links created successfully. Share each link
-              with its intended recipient.
+              Invitation links created successfully. Share each link with its intended recipient.
             </p>
 
             {createdInvites.map((invite) => (
               <div key={invite.email} className="flex flex-col gap-1.5">
-                <span className="text-dense text-text text-xs">
-                  {invite.email}
-                </span>
+                <span className="text-dense text-text text-xs">{invite.email}</span>
 
                 <div className="flex items-center gap-2">
                   <input
@@ -300,9 +269,7 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
                     onClick={() => copyInviteLink(invite.inviteUrl)}
                   >
                     <Copy className="mr-1 h-3 w-3" />
-                    {copiedUrl === invite.inviteUrl
-                      ? 'Copied'
-                      : 'Copy link'}
+                    {copiedUrl === invite.inviteUrl ? 'Copied' : 'Copy link'}
                   </Button>
                 </div>
               </div>
@@ -311,28 +278,21 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
         ) : null}
 
         <div>
-          <Button
-            type="submit"
-            variant="primary"
-            size="sm"
-            disabled={!canInvite || pending}
-          >
+          <Button type="submit" variant="primary" size="sm" disabled={!canInvite || pending}>
             {pending ? 'Creating links...' : 'Create invitation links'}
           </Button>
         </div>
       </form>
 
       <div className="flex flex-col gap-2 border-border border-t pt-3">
-        <h4 className="font-medium text-muted text-xs">
-          Pending invites
-        </h4>
+        <h4 className="font-medium text-muted text-xs">Pending invites</h4>
 
         {invites.length === 0 ? (
           <p className="text-faint text-xs">No pending invites.</p>
         ) : (
           <ul className="flex flex-col gap-1.5">
             {invites.map((invite) => {
-                const inviteUrl = `/invite/${invite.id}`;
+              const inviteUrl = `/invite/${invite.id}`;
 
               return (
                 <li
@@ -343,9 +303,7 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
                   )}
                 >
                   <span className="flex items-center gap-2">
-                    <span className="text-dense text-text">
-                      {invite.email}
-                    </span>
+                    <span className="text-dense text-text">{invite.email}</span>
                     <Badge tone="neutral">{invite.role}</Badge>
                   </span>
 
@@ -358,25 +316,15 @@ async function copyInviteLink(inviteUrl: string): Promise<void> {
                       onClick={() => copyInviteLink(inviteUrl)}
                     >
                       <Copy className="mr-1 h-3 w-3" />
-                      {copiedUrl === inviteUrl
-                        ? 'Copied'
-                        : 'Copy link'}
+                      {copiedUrl === inviteUrl ? 'Copied' : 'Copy link'}
                     </Button>
 
                     <Button
                       type="button"
                       size="sm"
                       variant="ghost"
-                      disabled={
-                        !canInvite || busyInviteId === invite.id
-                      }
-                      onClick={() =>
-                        inviteAction(
-                          invite.id,
-                          'DELETE',
-                          `/api/invites/${invite.id}`,
-                        )
-                      }
+                      disabled={!canInvite || busyInviteId === invite.id}
+                      onClick={() => inviteAction(invite.id, 'DELETE', `/api/invites/${invite.id}`)}
                     >
                       Revoke
                     </Button>

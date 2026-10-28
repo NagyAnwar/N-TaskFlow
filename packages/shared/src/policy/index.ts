@@ -63,11 +63,11 @@ const MEMBER_PERMISSIONS: readonly Permission[] = [
   'label:manage',
   'doc:write',
   'doc:publish',
-  'member:invite',
 ];
 
 const ADMIN_PERMISSIONS: readonly Permission[] = [
   ...MEMBER_PERMISSIONS,
+  'member:invite',
   'team:manage',
   'member:manage',
   'integration:manage',

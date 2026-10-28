@@ -27,9 +27,7 @@ export default async function OnboardingPage({
     redirect(landingPath);
   }
 
-  const invites: PendingInviteView[] = session.user.emailVerified
-    ? await pendingInvitesForEmail(status.email)
-    : [];
+  const invites: PendingInviteView[] = await pendingInvitesForEmail(status.email);
 
   const view: OnboardingStatusView = {
     name: status.name,
